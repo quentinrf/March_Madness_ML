@@ -69,7 +69,22 @@ def merge():
         merged.to_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
 
 
+def merge_years():
+    merged = pd.DataFrame()
+
+    for year in range(2010, 2021):
+        data = pd.read_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
+        data = data.loc[:, data.columns != "Unnamed: 0"]
+        cols = list(data.columns)
+        cols.remove("School")
+        data['Season'] = year
+        data = data.loc[:, ['School', 'Season'] + list(cols)]
+
+        merged = pd.concat([merged, data])
+    merged = merged.reset_index(drop=True)
+
+    merged.to_csv("Processed_Data/MergedStats/merged_all.csv")
 
 
 
-# merge()
+merge_years()
