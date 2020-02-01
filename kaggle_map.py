@@ -1,15 +1,9 @@
-import re
-school_map = list()
-file = open("kaggle_to_other.txt", "r")
-
-for line in file:
-    cleaned = re.finditer(r'\(.*?\)', line)
-    school_map.append(cleaned)
-
-print(school_map)
+import pandas as pd
 
 
-def convert_to_kaggle(dataframe):
+for year in range(2010, 2021):
+    df = pd.read_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
+
     df['School'] = df['School'].replace('(State)', 'St', regex=True)
     df['School'] = df['School'].replace('Albany (NY)', 'Albany NY')
     df['School'] = df['School'].replace('Boston University', 'Boston Univ')
@@ -113,4 +107,5 @@ def convert_to_kaggle(dataframe):
     df['School'] = df['School'].replace('Houston Baptist', 'Houston Bap')
     df['School'] = df['School'].replace('South Dakota St', 'S Dakota St')
     df['School'] = df['School'].replace('Maryland-Eastern Shore', 'MD E Shore')
-    return df
+
+    df.to_csv("Processed_Data/MergedStats/new_processed/merged_" + str(year) + ".csv", index = False)
