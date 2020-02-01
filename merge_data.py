@@ -48,26 +48,28 @@ def rename_cols_all():
             data.to_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
 
 def merge():
-    # for year in range(2010, 2021):
-    year = 2020
-    merged = pd.read_csv("Processed_Data/SchoolStats/school_" + str(year) + ".csv")
-    merged = merged.loc[:, merged.columns != "Unnamed: 0"]
-    merged = merged.set_index('School')
+    for year in range(2010, 2021):
+        merged = pd.read_csv("Processed_Data/SchoolStats/school_" + str(year) + ".csv")
+        merged = merged.loc[:, merged.columns != "Unnamed: 0"]
+        merged = merged.set_index('School')
 
-    for stat_type in ["Opponent", "AdvSchool", "AdvOpponent"]:
-        data = pd.read_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
-        if stat_type[0:3] == 
-        wanted_cols = pd.Series(data.columns).str.contains("Totals")
-        school_col = pd.Series(data.columns == "School")
-        data = data.loc[:, list(school_col | wanted_cols)]
-        data = data.set_index('School')
+        for stat_type in ["Opponent", "AdvSchool", "AdvOpponent"]:
+            data = pd.read_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
+            if stat_type[0:3] == "Adv":
+                wanted_cols = pd.Series(data.columns).str.contains("Advanced")
+            else:
+                wanted_cols = pd.Series(data.columns).str.contains("Totals")
+            school_col = pd.Series(data.columns == "School")
+            data = data.loc[:, list(school_col | wanted_cols)]
+            data = data.set_index('School')
 
-        merged = merged.join(data)
+            merged = merged.join(data)
 
-    print(merged.head().to_string())
-
-
-
+        merged = merged.reset_index()
+        merged.to_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
 
 
-merge()
+
+
+
+# merge()
