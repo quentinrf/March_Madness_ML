@@ -22,7 +22,7 @@ L -- Losses
 Points
 Tm. -- Points
 Opp. -- Opponent Points
-School Advanced
+Opponent Advanced
 Pace -- Pace Factor
 An estimate of school possessions per 40 minutes.
 ORtg -- Offensive Rating
@@ -36,6 +36,15 @@ A measure of shooting efficiency that takes into account 2-point field goals, 3-
 TRB% -- Total Rebound Percentage
 An estimate of the percentage of available rebounds a player grabbed while he was on the floor.
 AST% -- Assist Percentage
+An estimate of the percentage of teammate field goals a player assisted while he was on the floor.
+STL% -- Steal Percentage
+An estimate of the percentage of opponent possessions that end with a steal by the player while he was on the floor.
+BLK% -- Block Percentage
+An estimate of the percentage of opponent two-point field goal attempts blocked by the player while he was on the floor.
+eFG% -- Opponent Effective Field Goal Percentage
+TOV% -- Opponent Turnover Percentage
+ORB% -- Opponent Offensive Rebound Percentage
+FT/FGA -- Opponent Free Throws Per Field Goal Attempt
 An estimate of the percentage of teammate field goals a player assisted while he was on the floor.
 STL% -- Steal Percentage
 An estimate of the percentage of opponent possessions that end with a steal by the player while he was on the floor.
