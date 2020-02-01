@@ -2,10 +2,10 @@ import pandas as pd
 import numpy as np
 
 def join_sched_with_stats():
-    stats = pd.read_csv("Relevant_Data/merged_all.csv")
-    # stats = pd.DataFrame([[2010, "California", 69], [2010, "Murray St", 6969]], columns=['Season', 'School', 'stat'])
+    stats = pd.read_csv("Relevant_Data/merged_all_kaggle_mapped.csv")
     stats['Season_School'] = stats['Season'].astype(str) + stats['School']
-    stats = stats.loc[:, ['Season_School', 'stat']]
+    stats_cols = ['Season_School'] + list(stats.columns)[2:-1]
+    stats = stats.loc[:, stats_cols]
 
     team0_cols = [col + " 0" for col in stats.columns]
     team0 = pd.DataFrame(stats.values, columns=team0_cols)
@@ -24,7 +24,6 @@ def join_sched_with_stats():
     sched = sched.merge(team1, left_on='Season_Team1', right_on="Season_School 1")
     sched = sched.loc[:, ['Season', 'Team0'] + list(team0_cols) + ['Team1'] + list(team1_cols) + ['Winner']]
 
-
-    print(sched.head().to_string())
+    sched.to_csv("Relevant_Data/final.csv", index=False)
 
 join_sched_with_stats()
