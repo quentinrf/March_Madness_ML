@@ -26,4 +26,4 @@ def join_sched_with_stats():
 
     sched.to_csv("Relevant_Data/final.csv", index=False)
 
-join_sched_with_stats()
+# join_sched_with_stats()
