@@ -50,8 +50,8 @@ def rename_cols_all():
 def merge():
     for year in range(2010, 2021):
         merged = pd.read_csv("Processed_Data/SchoolStats/school_" + str(year) + ".csv")
-        merged = merged.loc[:, merged.columns != "Unnamed: 0"]
         merged = merged.set_index('School')
+        merged = merged.loc[:, merged.columns != "Unnamed: 0"]
 
         for stat_type in ["Opponent", "AdvSchool", "AdvOpponent"]:
             data = pd.read_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
