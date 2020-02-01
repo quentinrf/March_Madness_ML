@@ -45,13 +45,12 @@ def rename_cols_all():
         for year in range(2010, 2021):
             data = pd.read_csv("Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
             data = rename_cols(data)
-            data.to_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
+            data.to_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv", index=False)
 
 def merge():
     for year in range(2010, 2021):
         merged = pd.read_csv("Processed_Data/SchoolStats/school_" + str(year) + ".csv")
         merged = merged.set_index('School')
-        merged = merged.loc[:, merged.columns != "Unnamed: 0"]
 
         for stat_type in ["Opponent", "AdvSchool", "AdvOpponent"]:
             data = pd.read_csv("Processed_Data/" + stat_type + "Stats/" + stat_type.lower() + "_" + str(year) + ".csv")
@@ -66,7 +65,7 @@ def merge():
             merged = merged.join(data)
 
         merged = merged.reset_index()
-        merged.to_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
+        merged.to_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv", index=False)
 
 
 def merge_years():
@@ -74,7 +73,6 @@ def merge_years():
 
     for year in range(2010, 2021):
         data = pd.read_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
-        data = data.loc[:, data.columns != "Unnamed: 0"]
         cols = list(data.columns)
         cols.remove("School")
         data['Season'] = year
@@ -83,7 +81,7 @@ def merge_years():
         merged = pd.concat([merged, data])
     merged = merged.reset_index(drop=True)
 
-    merged.to_csv("Processed_Data/MergedStats/merged_all.csv")
+    merged.to_csv("Processed_Data/MergedStats/merged_all.csv", index=False)
 
 
 

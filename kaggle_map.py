@@ -1,8 +1,8 @@
 import pandas as pd
 
 
-for year in range(2010, 2021):
-    df = pd.read_csv("Processed_Data/MergedStats/merged_" + str(year) + ".csv")
+def map_names():
+    df = pd.read_csv("Processed_Data/MergedStats/merged_all.csv")
 
     # The stats CSV is a lit different in terms of naming so below is just some data cleaning
     df['School'] = df['School'].replace('(State)', 'St', regex=True)
@@ -186,4 +186,6 @@ for year in range(2010, 2021):
     df['School'] = df['School'].replace('Winthrop NCAA', 'Winthrop')
     df['School'] = df['School'].replace('Xavier NCAA', 'Xavier')
 
-    df.to_csv("Processed_Data/MergedStats/new_processed/merged_" + str(year) + ".csv", index = False)
+    df.to_csv("Relevant_Data/merged_all_kaggle_mapped.csv", index=False)
+
+map_names()
